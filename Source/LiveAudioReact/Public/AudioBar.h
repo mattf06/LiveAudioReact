@@ -56,7 +56,10 @@ public:
     FLinearColor ColorEnd = FLinearColor::Green;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "AudioBar | Settings")
-    float OpcityFactor = 1.0f;
+    float OpacityFactor = 1.0f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "AudioBar | Settings")
+    FVector AxeScale = FVector::OneVector;
 
     UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category = "AudioBar | Settings")
     TArray<UStaticMeshComponent*> boxes;
