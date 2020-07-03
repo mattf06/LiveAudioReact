@@ -7,5 +7,5 @@ AudioBar is a C++ Actor using the WindowsAudioCaptureActor as audio provider.
 We can add multiple AudioBar (or any kind of Actor) using the WindowsAudioCaptureActor to manage the capture audio data.
 
 A quick demo:
-https://youtu.be/GSNBc6DQiM8
+[![demo1](https://i9.ytimg.com/vi/GSNBc6DQiM8/mq1.jpg?sqp=CJiL_fcF&rs=AOn4CLArTi-e33Gq0FxQ5-yiTPJih29MwA)](https://youtu.be/GSNBc6DQiM8)
 
