@@ -8,8 +8,9 @@ We can add multiple AudioBar (or any kind of Actor) using the WindowsAudioCaptur
 
 Niagara integration: you can modify particles properties by using audio data (see video)
 
+Both particles type are supported: CPU & GPU
 
 A quick demo:
 
-- [![demo1](https://drive.google.com/file/d/1F7B1nqoR2Yo8gjGNu20XPeJa1dwjTSIV/view?usp=sharing)](https://youtu.be/GSNBc6DQiM8)
-
+- First demo - CPU Particles: https://youtu.be/GSNBc6DQiM8
+- 4K demo (GPU Particles) : https://youtu.be/6EdDkVG8EbI
