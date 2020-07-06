@@ -46,6 +46,10 @@
 		{
 			"Name": "TraceDataFilters",
 			"Enabled": true
+		},
+		{
+			"Name": "RiderLink",
+			"Enabled": false
 		}
 	],
 	"TargetPlatforms": [

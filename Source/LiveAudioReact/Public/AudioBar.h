@@ -24,7 +24,7 @@ protected:
     void GetAndBindAudioComponent();
 
     virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
-    void releasePreviousBoxes();
+    void ReleasePreviousBoxes();
     virtual void OnConstruction(const FTransform& Transform) override;
 
 public:
@@ -65,7 +65,7 @@ public:
     TArray<UStaticMeshComponent*> boxes;
 
     UFUNCTION(BlueprintInternalUseOnly)
-    void OnReceiveData(const TArray<float>& data);
+    void OnReceiveData(const TArray<float>& Data);
 
     FDelegateHandle MyDelegateHandle;
 

@@ -26,7 +26,8 @@ void AAudioBar::BeginPlay()
 
 void AAudioBar::GetAndBindAudioComponent()
 {
-    if (AudioCaptureManager != nullptr) {
+    if (AudioCaptureManager != nullptr)
+    {
         MyDelegateHandle = AudioCaptureManager->OnAudioCaptureNativeEvent.AddUObject(this, &AAudioBar::OnReceiveData);
     }
 }
@@ -35,14 +36,16 @@ void AAudioBar::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
     Super::EndPlay(EndPlayReason);
 
-    if (AudioCaptureManager != nullptr) {
+    if (AudioCaptureManager != nullptr)
+    {
         AudioCaptureManager->OnAudioCaptureNativeEvent.Remove(MyDelegateHandle);
     }
 }
 
-void AAudioBar::releasePreviousBoxes()
+void AAudioBar::ReleasePreviousBoxes()
 {
-    for (auto It = boxes.CreateIterator(); It; It++) {
+    for (auto It = boxes.CreateIterator(); It; It++)
+    {
         if (*It != nullptr)
             (*It)->DestroyComponent();
     }
@@ -55,7 +58,7 @@ void AAudioBar::Tick(float DeltaTime)
     Super::Tick(DeltaTime);
 }
 
-void AAudioBar::OnReceiveData(const TArray<float>& data)
+void AAudioBar::OnReceiveData(const TArray<float>& Data)
 {
     // 	UE_LOG(LogTemp, Log, TEXT("AAudioBar::OnReceiveData"));
     TRACE_CPUPROFILER_EVENT_SCOPE(TEXT("AAudioBar::OnReceiveData"));
@@ -65,16 +68,20 @@ void AAudioBar::OnReceiveData(const TArray<float>& data)
     if (boxes.Num() == 0)
         return;
 
-    for (int i = 0; i < boxes.Num(); i++) {
-        UStaticMeshComponent* boxe = boxes[i];
-        int index = FMath::GetMappedRangeValueUnclamped(FVector2D(0, boxes.Num() - 1), FVector2D(0, data.Num() - 1), i);
-        FVector scale = boxe->GetRelativeScale3D();
-        scale = InitialScale + (AxeScale * FMath::Clamp(data[index], 0.0001f, MAX_FLT));
-        boxe->SetRelativeScale3D(scale);
+    for (int i = 0; i < boxes.Num(); i++)
+    {
+        UStaticMeshComponent* Boxe = boxes[i];
+        const int32 Index = FMath::GetMappedRangeValueUnclamped(FVector2D(0, boxes.Num() - 1),
+                                                                FVector2D(0, Data.Num() - 1), i);
+        FVector Scale = Boxe->GetRelativeScale3D();
+        Scale = InitialScale + (AxeScale * FMath::Clamp(Data[Index], 0.0001f, MAX_FLT));
+        Boxe->SetRelativeScale3D(Scale);
 
-        UMaterialInstanceDynamic* mat = boxe->CreateAndSetMaterialInstanceDynamic(0);
-        if (mat) {
-            mat->SetScalarParameterValue(FName("Opacity"), FMath::Clamp(scale.Z * OpacityFactor, 0.0f, 1.0f));
+        UMaterialInstanceDynamic* MaterialInstance = Boxe->CreateAndSetMaterialInstanceDynamic(0);
+        if (MaterialInstance)
+        {
+            MaterialInstance->SetScalarParameterValue(FName("Opacity"),
+                                                      FMath::Clamp(Scale.Z * OpacityFactor, 0.0f, 1.0f));
         }
     }
 }
@@ -87,11 +94,13 @@ void AAudioBar::OnConstruction(const FTransform& Transform)
 
     // 	UE_LOG(LogTemp, Log, TEXT("AAudioBar::OnConstruction"));
 
-    releasePreviousBoxes();
+    ReleasePreviousBoxes();
 
-    for (int i = 0; i < NumBoxes; i++) {
+    for (int i = 0; i < NumBoxes; i++)
+    {
         UStaticMeshComponent* MeshComponent = NewObject<UStaticMeshComponent>(this);
-        if (MeshComponent != nullptr) {
+        if (MeshComponent != nullptr)
+        {
             MeshComponent->RegisterComponent();
             MeshComponent->SetStaticMesh(Mesh);
 
@@ -103,9 +112,12 @@ void AAudioBar::OnConstruction(const FTransform& Transform)
 
             MeshComponent->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
 
-            if (TemplateMaterialInstance != nullptr) {
-                auto MatInstance = MeshComponent->CreateDynamicMaterialInstance(0, TemplateMaterialInstance, FName("BoxeMat"));
-                if (MatInstance != nullptr) {
+            if (TemplateMaterialInstance != nullptr)
+            {
+                auto MatInstance = MeshComponent->CreateDynamicMaterialInstance(
+                    0, TemplateMaterialInstance, FName("BoxeMat"));
+                if (MatInstance != nullptr)
+                {
                     MatInstance->SetVectorParameterValue(
                         "BaseColor", FMath::Lerp(ColorStart, ColorEnd, float(i) / float(NumBoxes)));
                 }
